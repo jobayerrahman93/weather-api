@@ -1,109 +1,111 @@
-const loadWeather=()=>{
-    const inputCity=document.getElementById('input-location');
-    const cityValue=inputCity.value;
+const loadWeather = () => {
+    const inputCity = document.getElementById('input-location');
+    const cityValue = inputCity.value;
     // console.log(cityValue);
-    if(cityValue===''){
+
+    if (cityValue === '') {
         document.getElementById('validCity').classList.add('d-block');
-      
+
         document.getElementById('weather-status').classList.add('d-none');
     }
-    else{
+    else {
 
         document.getElementById('validCity').classList.remove('d-block');
-        
-        document.getElementById('weather-status').classList.remove('d-none');
-        
 
-        const url=`https://api.openweathermap.org/data/2.5/weather?q=${cityValue}&appid=15b741a5834682894c13c96dcafee67e&units=metric`;
-        console.log(url);
+
+
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityValue}&appid=15b741a5834682894c13c96dcafee67e&units=metric`;
+
+        // console.log(url);
+
         fetch(url)
-        .then(res=>res.json())
-        .then(data=>displayData(data)); 
+            .then(res => res.json())
+            .then(data => displayData(data));
     }
 
- 
-    
+
+
 }
 
-const displayData=(data)=>{
- 
-    console.log(data);
+const displayData = (data) => {
 
-    if(data.cod=='404'){
+    // console.log(data);
+
+    if (data.cod == '404') {
         document.getElementById('validCity').classList.add('d-block');
         document.getElementById('weather-status').classList.add('d-none');
-
         
-    }
-    else{
 
-    
+    }
+    else {
+
+
         document.getElementById('validCity').classList.remove('d-block');
         document.getElementById('weather-status').classList.remove('d-none');
 
-       
-     const city=document.getElementById('city');
-     city.innerText=data.name;
 
-     nameOfCountry=document.getElementById('countryName');
-     nameOfCountry.innerText=data.sys.country;
+        const city = document.getElementById('city');
+        city.innerText = data.name;
 
-     const temperature=document.getElementById('temperature');
-     
-     temperature.innerText=data.main.temp;
-     const info=document.getElementById('weather-info');
-     info.innerText=data.weather[0].main;
+        nameOfCountry = document.getElementById('countryName');
+        nameOfCountry.innerText = data.sys.country;
 
-    //  set icon with url
-     const icon = document.getElementById('icon');
-      const url=`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
-      icon.setAttribute('src',url);
+        const temperature = document.getElementById('temperature');
+
+        temperature.innerText = data.main.temp;
+        const info = document.getElementById('weather-info');
+        info.innerText = data.weather[0].main;
+
+        //  set icon with url
+        const icon = document.getElementById('icon');
+        const url = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+        icon.setAttribute('src', url);
     }
-    
 
 
-     
+
+
 }
 
 
 // automatic load
 
-const autoLoadWeather=()=>{
-  
+const autoLoadWeather = () => {
 
-    const url=`https://api.openweathermap.org/data/2.5/weather?q=rangpur&appid=15b741a5834682894c13c96dcafee67e&units=metric`;
+
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=rangpur&appid=15b741a5834682894c13c96dcafee67e&units=metric`;
     // console.log(url);
     fetch(url)
-    .then(res=>res.json())
-    .then(data=>displayData(data)); 
-    
+        .then(res => res.json())
+        .then(data => autoDisplayWeather(data));
+
 }
 
 autoLoadWeather();
 
 
-const autoDisplayWeather=(data)=>{
- 
-    console.log(data);
-    console.log(data.main.temp);
+const autoDisplayWeather = (data) => {
 
-     const city=document.getElementById('city');
-     city.innerText=data.name;
 
-     nameOfCountry=document.getElementById('countryName');
-     nameOfCountry.innerText=data.sys.country;
+    const city = document.getElementById('city');
+   
+    
+    city.innerText = data.name;
 
-     const temperature=document.getElementById('temperature');
-     
-     temperature.innerText=data.main.temp;
-     const info=document.getElementById('weather-info');
-     info.innerText=data.weather[0].main;
+    nameOfCountry = document.getElementById('countryName');
+    nameOfCountry.innerText = data.sys.country;
+
+    const temperature = document.getElementById('temperature');
+
+    temperature.innerText = data.main.temp;
+    const info = document.getElementById('weather-info');
+    info.innerText = data.weather[0].main;
 
 
     //  set icon with url
-     const icon = document.getElementById('icon');
-      const url=`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
-      icon.setAttribute('src',url);
+    const icon = document.getElementById('icon');
+    const url = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+    icon.setAttribute('src', url);
 }
 
 
@@ -117,5 +119,5 @@ const autoDisplayWeather=(data)=>{
 //         .then(Response => Response.json())
 //         .then(data => {
 //             console.log('this',data)
-//         })
+//         });
 // })
